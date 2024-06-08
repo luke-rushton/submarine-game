@@ -5,10 +5,28 @@ body{
 main{
     background-color: white;
     height: 100vh;
-    width: 60%;
+    width: 1064px;
     margin: auto;
+
 }
 h1{
     text-align: center;
     margin: 0;
+}
+#game{
+    position: relative;
+}
+#game-canvas{
+    background-color: aqua;
+    margin: 2rem;
+}
+#start-screen{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+#game-info p,
+#game-info h2{
+    text-align: center;
 }

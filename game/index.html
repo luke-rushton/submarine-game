@@ -5,10 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submarine Adventure</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="game.js"></script>
 </head>
 <body>
     <main>
         <h1>Submarine Adventure!</h1>
+        <div id="game">
+            <canvas id="game-canvas"></canvas>
+            <div id="start-screen">
+                <h2>Press SPACE to start!</h2>
+            </div>
+        </div>
+        <div id="game-info">
+            <p>Your underwater adventure has gone terribly wrong! Lost in a deep underwater cave with little chance of escape! How long can you survive?</p>
+            <h2>Controls:</h2>
+            <p>W to float up</p>
+            <p>S to float down</p>
+        </div>
     </main>
 </body>
 </html>
