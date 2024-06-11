@@ -3,8 +3,25 @@ const canvas = document.getElementById("game-canvas");
 const context = canvas.getContext("2d");
 canvas.width = 1000;
 canvas.height = 500;
+const submarineImg = new Image();
+submarineImg.src = "sub-basic.png";
 
-class Rock {
+
+class Submarine {
+    constructor() {
+        this.x = 250; //update initial position here
+        this.y = 250;
+        this.neutralFloat = submarineImg; //maybe directly assign src
+    }
+    draw() {
+        context.drawImage(this.neutralFloat, this.x, this.y);
+    }
+    move() { //maybe an up and down?
+
+    }
+}
+
+class Rock { //might want to change name?
     constructor(x = 950, y = 0) { //update or remove default values
         this.x = x;
         this.y = y;
@@ -34,11 +51,14 @@ class Game {
     }
     start() {
         const rock = new Rock();
+        const submarine = new Submarine();
         rock.draw();
+        submarine.draw();
         const animate = () => { //split animate into animation function?
             context.clearRect(0, 0, canvas.width, canvas.height);
             rock.move();
             rock.draw();
+            submarine.draw();
             requestAnimationFrame(animate);
         };
         animate();
