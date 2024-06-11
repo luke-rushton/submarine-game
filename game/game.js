@@ -6,10 +6,9 @@ canvas.height = 500;
 const submarineImg = new Image();
 submarineImg.src = "sub-basic.png";
 
-
 class Submarine {
     constructor() {
-        this.x = 250; //update initial position here
+        this.x = 250; //update initial position here there is a minor float up at start due to this position. update to start at neutral?
         this.y = 250;
         this.ceiling = 0; //these 2 are for submarine up and down max height
         this.floor = 450;
