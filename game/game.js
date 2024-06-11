@@ -6,6 +6,7 @@ canvas.height = 500;
 const submarineImg = new Image();
 submarineImg.src = "sub-basic.png";
 
+const rockArray = [];
 class Submarine {
     constructor() {
         this.x = 250; //update initial position here there is a minor float up at start due to this position. update to start at neutral?
@@ -38,12 +39,25 @@ class Submarine {
             this.y -= 2.5;
         }
     }
+    checkCollision() {
+        rockArray.forEach((rock) => { //need to differentiate if rock is floor or ceiling
+            if (this.x >= rock.x) { //lotsa magic happening here
+                if (this.x <= rock.end) {
+                    if (this.y <= rock.bot) { //not checking top bound but probably dont need to?
+                        console.log('crash!');
+                    }
+                }
+            }
+        });
+    }
 }
 
 class Rock { //might want to change name?
     constructor(x = 950, y = 0) { //update or remove default values
         this.x = x;
         this.y = y;
+        this.bot = y + 50; //magic number is rock height shuld refactor
+        this.end = x + 50;
         this.color = '#000000';
     }
 
@@ -56,6 +70,7 @@ class Rock { //might want to change name?
 
     move() {
         this.x -= 5; //update this to change scroll speed
+        this.end = this.x + 50;
         if (this.x < -50) {
             this.x = canvas.width + 50;
         }
@@ -70,6 +85,7 @@ class Game {
     }
     start() {
         const rock = new Rock();
+        rockArray.push(rock) //generate terrain here?
         const submarine = new Submarine();
         rock.draw();
         submarine.draw();
@@ -101,8 +117,10 @@ class Game {
 
         const animate = () => { //split animate into animation function?
             context.clearRect(0, 0, canvas.width, canvas.height);
-            rock.move();
-            rock.draw();
+            rockArray.forEach((rock) => {
+                rock?.move();
+                rock?.draw();
+            });
 
             if (submarine.movingUp) { //can move this logic around, used to control submarine up and down
                 submarine.float();
@@ -111,7 +129,7 @@ class Game {
             } else {
                 submarine.reset();
             }
-
+            submarine.checkCollision();
             submarine.draw();
             requestAnimationFrame(animate);
         };
@@ -125,7 +143,7 @@ class Game {
 
 //hide ui elements and start game
 const startScreenElem = document.getElementById("start-screen");
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", (event) => { //GOTTA LOCK THIS OUT ON GAME START
     if (event.key === ' ') {
         startScreenElem.style.display = 'none';
         startGame();
