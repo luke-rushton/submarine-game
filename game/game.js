@@ -11,13 +11,33 @@ class Submarine {
     constructor() {
         this.x = 250; //update initial position here
         this.y = 250;
+        this.ceiling = 0; //these 2 are for submarine up and down max height
+        this.floor = 450;
+        this.neutral = (this.ceiling + this.floor) / 2; //take into account sub sprite offset?
+        this.movingUp = false;
+        this.movingDown = false;
         this.neutralFloat = submarineImg; //maybe directly assign src
     }
     draw() {
         context.drawImage(this.neutralFloat, this.x, this.y);
     }
-    move() { //maybe an up and down?
-
+    float() { //maybe combine float and sink?
+        if (this.y > this.ceiling) {
+            this.y -= 5;
+        }
+    }
+    sink() {
+        if (this.y < this.floor) {
+            this.y += 5;
+        }
+    }
+    reset() {
+        if (this.y < this.neutral) {
+            this.y += 2.5; //floats back at half speed of control
+        }
+        if (this.y > this.neutral) {
+            this.y -= 2.5;
+        }
     }
 }
 
@@ -54,10 +74,45 @@ class Game {
         const submarine = new Submarine();
         rock.draw();
         submarine.draw();
+
+        //try and refactor these 4
+        const moveUp = document.addEventListener("keydown", (event) => {
+            if (event.key === 'w') {
+                submarine.movingUp = true;
+            }
+        });
+
+        const floatDown = document.addEventListener("keyup", (event) => {
+            if (event.key === 'w') {
+                submarine.movingUp = false;
+            }
+        });
+
+        const downUp = document.addEventListener("keydown", (event) => {
+            if (event.key === 's') {
+                submarine.movingDown = true;
+            }
+        });
+
+        const floatUp = document.addEventListener("keyup", (event) => {
+            if (event.key === 's') {
+                submarine.movingDown = false;
+            }
+        });
+
         const animate = () => { //split animate into animation function?
             context.clearRect(0, 0, canvas.width, canvas.height);
             rock.move();
             rock.draw();
+
+            if (submarine.movingUp) { //can move this logic around, used to control submarine up and down
+                submarine.float();
+            } else if (submarine.movingDown) {
+                submarine.sink();
+            } else {
+                submarine.reset();
+            }
+
             submarine.draw();
             requestAnimationFrame(animate);
         };
