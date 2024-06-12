@@ -16,11 +16,22 @@ class Game {
         this.canvas = canvas; //maybe initialize inside object?
         this.traverseSpeed = 25; //change for faster/slower game scrolling
     }
+    generateTerrain(){
+        for(let x = -50; x < 1050; x += 50){
+            for(let y = 0; y < 3; y++){
+                const rock = new Rock(x,y*50);
+                const rockb = new Rock(x,450 - y*50);
+                rockArray.push(rock);
+                rockArray.push(rockb);
+            }
+        }
+    }
     start() {
-        const rock = new Rock();
-        rockArray.push(rock) //generate terrain here?
+        this.generateTerrain();
         const submarine = new Submarine();
-        rock.draw();
+        rockArray.forEach((rock) => {
+            rock?.draw();
+        });
         submarine.draw();
 
         //try and refactor these 4
