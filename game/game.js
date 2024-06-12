@@ -6,9 +6,6 @@ canvas.height = 500;
 const submarineImg = new Image();
 submarineImg.src = "sub-basic.png";
 
-//stops spamming start game
-let gameStarted = false;
-
 class Game {
     constructor() {
         this.hello = "hello world!";
@@ -17,6 +14,7 @@ class Game {
     }
     start() {
         const rock = new Rock();
+        rockArray.push(rock) //generate terrain here?
         const submarine = new Submarine();
         rock.draw();
         submarine.draw();
@@ -48,8 +46,10 @@ class Game {
 
         const animate = () => { //split animate into animation function?
             context.clearRect(0, 0, canvas.width, canvas.height);
-            rock.move();
-            rock.draw();
+            rockArray.forEach((rock) => {
+                rock?.move();
+                rock?.draw();
+            });
 
             if (submarine.movingUp) { //can move this logic around, used to control submarine up and down
                 submarine.float();
@@ -58,7 +58,7 @@ class Game {
             } else {
                 submarine.reset();
             }
-
+            submarine.checkCollision();
             submarine.draw();
             requestAnimationFrame(animate);
         };
@@ -72,7 +72,7 @@ class Game {
 
 //hide ui elements and start game
 const startScreenElem = document.getElementById("start-screen");
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", (event) => { //GOTTA LOCK THIS OUT ON GAME START
     if (event.key === ' ') {
         if(!gameStarted){
             gameStarted = true;
