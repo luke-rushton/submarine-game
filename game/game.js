@@ -5,6 +5,10 @@ canvas.width = 1000;
 canvas.height = 500;
 const submarineImg = new Image();
 submarineImg.src = "sub-basic.png";
+const rockArray = [];
+
+//stops spamming start game
+let gameStarted = false;
 
 class Game {
     constructor() {
@@ -50,7 +54,6 @@ class Game {
                 rock?.move();
                 rock?.draw();
             });
-
             if (submarine.movingUp) { //can move this logic around, used to control submarine up and down
                 submarine.float();
             } else if (submarine.movingDown) {
@@ -72,7 +75,7 @@ class Game {
 
 //hide ui elements and start game
 const startScreenElem = document.getElementById("start-screen");
-document.addEventListener("keydown", (event) => { //GOTTA LOCK THIS OUT ON GAME START
+document.addEventListener("keydown", (event) => {
     if (event.key === ' ') {
         if(!gameStarted){
             gameStarted = true;

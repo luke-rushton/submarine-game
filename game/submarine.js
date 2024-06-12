@@ -30,4 +30,15 @@ class Submarine {
             this.y -= 2.5;
         }
     }
+    checkCollision() {
+        rockArray.forEach((rock) => { //need to differentiate if rock is floor or ceiling
+            if (this.x >= rock.x) { //lotsa magic happening here
+                if (this.x <= rock.end) {
+                    if (this.y <= rock.bot) { //not checking top bound but probably dont need to?
+                        console.log('crash!');
+                    }
+                }
+            }
+        });
+    }
 }
