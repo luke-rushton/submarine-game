@@ -17,29 +17,37 @@ class Submarine {
     float() { //maybe combine float and sink?
         if (this.y > this.ceiling) {
             this.y -= 5;
+            this.y2 -= 5;
         }
     }
     sink() {
         if (this.y < this.floor) {
             this.y += 5;
+            this.y2 += 5;
         }
     }
     reset() {
         if (this.y < this.neutral) {
             this.y += 2.5; //floats back at half speed of control
+            this.y2 += 2.5;
         }
         if (this.y > this.neutral) {
             this.y -= 2.5;
+            this.y2 -= 2.5;
         }
     }
     checkCollision() {
         rockArray.forEach((rock) => { //need to differentiate if rock is floor or ceiling
-            if (this.x >= rock.x) { //lotsa magic happening here
-                if (this.x <= rock.x2) {
-                    if (this.y <= rock.y2) { //not checking top bound but probably dont need to?
-                        console.log('crash!');
-                    }
-                }
+            // if (this.x >= rock.x) { //lotsa magic happening here
+            //     if (this.x <= rock.x2) {
+            //         if (this.y <= rock.y2) { //not checking top bound but probably dont need to?
+            //             console.log('crash!');
+            //         }
+            //     }
+            // }
+            //hitbox based of https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
+            if(this.x < rock.x2 && this.x2 > rock.x && this.y < rock.y2 && this.y2 > rock.y){
+                console.log('hit');
             }
         });
     }
