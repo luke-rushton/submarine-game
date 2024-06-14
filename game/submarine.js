@@ -2,7 +2,7 @@ class Submarine {
     constructor() {
         this.x = 250; //update initial position here there is a minor float up at start due to this position. update to start at neutral?
         this.y = 250;
-        this.x2 = 250 + 64;
+        this.x2 = 250 + 64; //magic numbers for submarine size. make universal?
         this.y2 = 250 + 32;
         this.ceiling = 0; //these 2 are for submarine up and down max height
         this.floor = 450;
@@ -47,7 +47,7 @@ class Submarine {
             //     }
             // }
             //hitbox based of https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
-            if(this.x < rock.x2 && this.x2 > rock.x && this.y < rock.y2 && this.y2 > rock.y){
+            if (this.x < rock.x2 && this.x2 > rock.x && this.y < rock.y2 && this.y2 > rock.y) {
                 hasCollided = true;
             }
         });
