@@ -7,7 +7,8 @@ canvas.width = 1000;
 canvas.height = 500;
 const submarineImg = new Image();
 submarineImg.src = "sub-basic.png";
-const rockArray = [];
+let rockArray = [];
+const rockHeight = 10; //change this to increase/decrease rocksize 
 
 //stops spamming start game
 let gameStarted = false;
@@ -16,17 +17,11 @@ class Game {
     constructor() {
         this.hello = "hello world!";
         this.canvas = canvas; //maybe initialize inside object?
-        this.traverseSpeed = 25; //change for faster/slower game scrolling
+        this.traverseSpeed = 25; //change for faster/slower game scrolling maybe make const
     }
     generateTerrain() {
-        for (let x = -50; x < 1050; x += 50) {
-            for (let y = 0; y < 3; y++) {
-                const rock = new Rock(x, y * 50);
-                const rockb = new Rock(x, 450 - y * 50);
-                rockArray.push(rock);
-                rockArray.push(rockb);
-            }
-        }
+        flatGeneration(rockHeight);
+        //waveGeneration(rockHeight);
     }
     start() {
         this.generateTerrain();
@@ -87,6 +82,7 @@ class Game {
         startScreenElem.style.display = 'block';
         startScreenElem.innerHTML = 'You Died! Press space to restart';
         gameStarted = false;
+        rockArray = [];
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
