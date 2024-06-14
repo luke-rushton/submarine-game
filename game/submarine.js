@@ -37,6 +37,7 @@ class Submarine {
         }
     }
     checkCollision() {
+        let hasCollided = false;
         rockArray.forEach((rock) => { //need to differentiate if rock is floor or ceiling
             // if (this.x >= rock.x) { //lotsa magic happening here
             //     if (this.x <= rock.x2) {
@@ -47,8 +48,9 @@ class Submarine {
             // }
             //hitbox based of https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
             if(this.x < rock.x2 && this.x2 > rock.x && this.y < rock.y2 && this.y2 > rock.y){
-                console.log('hit');
+                hasCollided = true;
             }
         });
+        return hasCollided;
     }
 }
