@@ -18,11 +18,11 @@ class Game {
         this.canvas = canvas; //maybe initialize inside object?
         this.traverseSpeed = 25; //change for faster/slower game scrolling
     }
-    generateTerrain(){
-        for(let x = -50; x < 1050; x += 50){
-            for(let y = 0; y < 3; y++){
-                const rock = new Rock(x,y*50);
-                const rockb = new Rock(x,450 - y*50);
+    generateTerrain() {
+        for (let x = -50; x < 1050; x += 50) {
+            for (let y = 0; y < 3; y++) {
+                const rock = new Rock(x, y * 50);
+                const rockb = new Rock(x, 450 - y * 50);
                 rockArray.push(rock);
                 rockArray.push(rockb);
             }
@@ -74,7 +74,7 @@ class Game {
             } else {
                 submarine.reset();
             }
-            if (submarine.checkCollision()){
+            if (submarine.checkCollision()) {
                 this.endGame(); //add in ending animation function
                 return;
             }
@@ -83,9 +83,10 @@ class Game {
         };
         animate();
     }
-    endGame(){
+    endGame() {
         startScreenElem.style.display = 'block';
-        startScreenElem.innerHTML = 'You Died!'
+        startScreenElem.innerHTML = 'You Died! Press space to restart';
+        gameStarted = false;
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
@@ -97,7 +98,7 @@ class Game {
 //hide ui elements and start game
 document.addEventListener("keydown", (event) => {
     if (event.key === ' ') {
-        if(!gameStarted){
+        if (!gameStarted) {
             gameStarted = true;
             startScreenElem.style.display = 'none';
             startGame();
