@@ -1,3 +1,5 @@
+//start screen elem
+const startScreenElem = document.getElementById("start-screen");
 //build the canvas 
 const canvas = document.getElementById("game-canvas");
 const context = canvas.getContext("2d");
@@ -72,11 +74,19 @@ class Game {
             } else {
                 submarine.reset();
             }
-            submarine.checkCollision();
+            if (submarine.checkCollision()){
+                this.endGame(); //add in ending animation function
+                return;
+            }
             submarine.draw();
             requestAnimationFrame(animate);
         };
         animate();
+    }
+    endGame(){
+        startScreenElem.style.display = 'block';
+        startScreenElem.innerHTML = 'You Died!'
+        context.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
 
@@ -85,7 +95,6 @@ class Game {
 
 
 //hide ui elements and start game
-const startScreenElem = document.getElementById("start-screen");
 document.addEventListener("keydown", (event) => {
     if (event.key === ' ') {
         if(!gameStarted){
