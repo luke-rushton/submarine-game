@@ -5,6 +5,7 @@ class Rock { //might want to change name?
         this.x2 = x + rockHeight; //magic number is rock height shuld refactor
         this.y2 = y + rockHeight;
         this.color = '#6b2911'; //replace with texture
+
     }
 
     draw() {
@@ -17,11 +18,16 @@ class Rock { //might want to change name?
     }
 
     move() {
+        //x will never change no matter generation style
         this.x -= 5; //update this to change scroll speed
         this.x2 = this.x + rockHeight;
         if (this.x < -rockHeight) {
             this.x = canvas.width + rockHeight - 5;
             this.x2 = this.x + rockHeight;
+            //generate the tunnel by changing y values
+            this.y = testGen(this.y);
+            this.y2 = this.y + rockHeight
         }
+
     }
 }

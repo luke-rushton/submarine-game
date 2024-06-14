@@ -1,29 +1,41 @@
-function flatGeneration(rockSize) {
-    for (let x = -rockSize; x < (1000 + rockSize); x += rockSize) { //+rockSize to account for ofscreen generation to avoid gaps
-        for (let y = 0; y < 3; y++) {
-            const rock = new Rock(x, y * rockSize);
-            const rockb = new Rock(x, (500 - rockSize) - y * rockSize); //finds bottom point to start from
-            rockArray.push(rock);
-            rockArray.push(rockb);
-        }
+//intializes the rock array.
+function initialGeneration() {
+    for (let x = -rockHeight; x < (1000 + rockHeight); x += rockHeight) { //+rockSize to account for ofscreen generation to avoid gaps
+        const rock = new Rock(x, tunnelWidth * rockHeight);
+        const rockb = new Rock(x, (500 - rockHeight) - tunnelWidth * rockHeight); //finds bottom point to start from
+        rockArray.push(rock);
+        rockArray.push(rockb);
     }
 }
-function waveGeneration(rockSize) {
-    let startVal = 0;
-    let direction = 1;
-    for (let x = -rockSize; x < (1000 + rockSize); x += rockSize) {
-        for (let y = 0; y < startVal; y++) {
-            const rock = new Rock(x, y * rockSize);
-            const rockb = new Rock(x, (500 - rockSize) - y * rockSize);
-            rockArray.push(rock);
-            rockArray.push(rockb);
+
+//params for generating infinite terrain
+const maxTunnelHeight = 30;
+let currentHeight = tunnelWidth;
+let isDescending = true;
+let isCeiling = true;
+let ceilingHeight = 0;
+
+function testGen(height) {
+    if (isCeiling) {
+        if (currentHeight === 0) {
+            isDescending = true;
         }
-        if (startVal === 0) {
-            direction = 1;
+        if (currentHeight >= maxTunnelHeight) {
+            isDescending = false;
         }
-        if (startVal === 3) {
-            direction = -1;
+
+        if (isDescending) {
+            currentHeight += 1;
+        } else {
+            currentHeight -= 1;
         }
-        startVal += direction;
+        isCeiling = false;
+        ceilingHeight = currentHeight * rockHeight;
+        return ceilingHeight;
     }
+    else {
+        isCeiling = true;
+        return ceilingHeight - tunnelWidth * rockHeight + (500 - rockHeight) - tunnelWidth * rockHeight
+    }
+
 }

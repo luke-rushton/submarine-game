@@ -9,7 +9,7 @@ const submarineImg = new Image();
 submarineImg.src = "sub-basic.png";
 let rockArray = [];
 const rockHeight = 10; //change this to increase/decrease rocksize 
-
+const tunnelWidth = 8; //used to set initial distance of tunnel from floor/ceiling
 //stops spamming start game
 let gameStarted = false;
 
@@ -19,9 +19,8 @@ class Game {
         this.canvas = canvas; //maybe initialize inside object?
         this.traverseSpeed = 25; //change for faster/slower game scrolling maybe make const
     }
-    generateTerrain() {
-        flatGeneration(rockHeight);
-        //waveGeneration(rockHeight);
+    generateTerrain() { //builds the rockArray, not actually structuring map. tunnel generating happens in move()
+        initialGeneration();
     }
     start() {
         this.generateTerrain();
@@ -82,7 +81,11 @@ class Game {
         startScreenElem.style.display = 'block';
         startScreenElem.innerHTML = 'You Died! Press space to restart';
         gameStarted = false;
+        //resetting global variables
+        currentHeight = tunnelWidth;
+        isDescending = true;
         rockArray = [];
+        //resetting canvas
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
