@@ -9,7 +9,7 @@ function initialGeneration() {
 }
 
 //params for generating infinite terrain
-const maxTunnelHeight = 30;
+let maxTunnelHeight = Math.floor(Math.random() * 42);
 let currentHeight = tunnelWidth;
 let isDescending = true;
 let isCeiling = true;
@@ -20,9 +20,12 @@ function testGen(height) {
         if (currentHeight === 0) {
             isDescending = true;
         }
-        if (currentHeight >= maxTunnelHeight) {
+        if (isDescending && currentHeight >= maxTunnelHeight) {
             isDescending = false;
+            maxTunnelHeight = Math.floor(Math.random() * 42);
+            console.log(maxTunnelHeight);
         }
+
 
         if (isDescending) {
             currentHeight += 1;
