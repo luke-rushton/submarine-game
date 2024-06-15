@@ -9,7 +9,7 @@ function initialGeneration() {
 }
 
 //params for generating infinite terrain
-let maxTunnelHeight = Math.floor(Math.random() * 42);
+let maxTunnelHeight = Math.floor(Math.random() * 20);
 let currentHeight = tunnelWidth;
 let isDescending = true;
 let isCeiling = true;
@@ -17,12 +17,12 @@ let ceilingHeight = 0;
 
 function testGen(height) {
     if (isCeiling) {
-        if (currentHeight === 0) {
+        if (currentHeight <= 0) {
             isDescending = true;
         }
         if (isDescending && currentHeight >= maxTunnelHeight) {
             isDescending = false;
-            maxTunnelHeight = Math.floor(Math.random() * 42);
+            maxTunnelHeight = Math.floor(Math.random() * 20);
             console.log(maxTunnelHeight);
         }
 
@@ -38,7 +38,12 @@ function testGen(height) {
     }
     else {
         isCeiling = true;
-        return ceilingHeight - tunnelWidth * rockHeight + (500 - rockHeight) - tunnelWidth * rockHeight
+        floor = ceilingHeight - tunnelWidth * rockHeight + (500 - rockHeight) - tunnelWidth * rockHeight;
+        if (floor >= 500) {
+            return 500 - rockHeight;
+        } else {
+            return floor;
+        }
     }
 
 }

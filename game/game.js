@@ -8,8 +8,8 @@ canvas.height = 500;
 const submarineImg = new Image();
 submarineImg.src = "yellow-sub-neutral.png";
 let rockArray = [];
-const rockHeight = 10; //change this to increase/decrease rocksize 
-const tunnelWidth = 8; //used to set initial distance of tunnel from floor/ceiling
+const rockHeight = 20; //change this to increase/decrease rocksize 
+const tunnelWidth = 4; //used to set initial distance of tunnel from floor/ceiling
 //stops spamming start game
 let gameStarted = false;
 
