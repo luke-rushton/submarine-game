@@ -1,8 +1,8 @@
 //intializes the rock array.
 function initialGeneration() {
     for (let x = -rockHeight; x < (1000 + rockHeight); x += rockHeight) { //+rockSize to account for ofscreen generation to avoid gaps
-        const rock = new Rock(x, tunnelWidth * rockHeight);
-        const rockb = new Rock(x, (500 - rockHeight) - tunnelWidth * rockHeight); //finds bottom point to start from
+        const rock = new Rock(x, tunnelWidth * rockHeight, true);
+        const rockb = new Rock(x, (500 - rockHeight) - tunnelWidth * rockHeight, false); //finds bottom point to start from
         rockArray.push(rock);
         rockArray.push(rockb);
     }
@@ -14,7 +14,9 @@ let currentHeight = tunnelWidth;
 let isDescending = true;
 let isCeiling = true;
 let ceilingHeight = 0;
+let flatSegment = 0;
 
+//this generator sucks and i hate it
 function testGen(height) {
     if (isCeiling) {
         if (currentHeight <= 0) {
@@ -25,7 +27,6 @@ function testGen(height) {
             maxTunnelHeight = Math.floor(Math.random() * 20);
             console.log(maxTunnelHeight);
         }
-
 
         if (isDescending) {
             currentHeight += 1;

@@ -14,6 +14,7 @@ submarineDownImg.src = "yellow-sub-descend.png";
 let rockArray = [];
 const rockHeight = 20; //change this to increase/decrease rocksize 
 const tunnelWidth = 4; //used to set initial distance of tunnel from floor/ceiling
+const rockColor = '#6b2911'; //same as in rock class
 //stops spamming start game
 let gameStarted = false;
 
