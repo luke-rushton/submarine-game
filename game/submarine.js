@@ -9,11 +9,21 @@ class Submarine {
         this.neutral = (this.ceiling + this.floor) / 2; //take into account sub sprite offset?
         this.movingUp = false;
         this.movingDown = false;
+        //maybe adjust hitbox for float up and down? so pic is not cut
         this.neutralFloat = submarineImg; //maybe directly assign src
+        this.upFloat = submarineUpImg; //maybe directly assign src
+        this.downFloat = submarineDownImg; //maybe directly assign src
     }
     draw() {
-        context.drawImage(this.neutralFloat, this.x, this.y);
+        if(this.movingUp){
+            context.drawImage(this.upFloat, this.x, this.y);
+        } else if (this.movingDown){
+            context.drawImage(this.downFloat, this.x, this.y);
+        } else {
+            context.drawImage(this.neutralFloat, this.x, this.y);
+        }
     }
+
     float() { //maybe combine float and sink?
         if (this.y > this.ceiling) {
             this.y -= 5;
