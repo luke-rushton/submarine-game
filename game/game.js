@@ -17,6 +17,7 @@ const tunnelWidth = 4; //used to set initial distance of tunnel from floor/ceili
 const rockColor = '#6b2911'; //same as in rock class
 //stops spamming start game
 let gameStarted = false;
+let gameplayTheme = new Audio('gameplay-theme.mp3');
 
 class Game {
     constructor() {
@@ -28,6 +29,8 @@ class Game {
         initialGeneration();
     }
     start() {
+        //MUSIC FROM: https://heatleybros.bandcamp.com/track/sunset-beach
+        gameplayTheme.play();
         this.generateTerrain();
         const submarine = new Submarine();
         rockArray.forEach((rock) => {
@@ -83,6 +86,8 @@ class Game {
         animate();
     }
     endGame() {
+        gameplayTheme.pause();
+        gameplayTheme.currentTime = 0;
         startScreenElem.style.display = 'block';
         startScreenElem.innerHTML = 'You Died! Press space to restart';
         gameStarted = false;
