@@ -16,7 +16,7 @@ class Rock { //might want to change name?
         } else {
             context.rect(this.x, this.y, rockHeight, 500);
         }
-        context.strokeStyle = '#f2bb74'
+        context.strokeStyle = '#f2bb74';
         context.stroke(); //remove when add texture
         context.fillStyle = this.color;
         context.fill();
