@@ -1,5 +1,5 @@
 class Rock { //might want to change name?
-    constructor(x = 950, y = 0, isCeiling=true) { //update or remove default values
+    constructor(x = 950, y = 0, isCeiling = true) { //update or remove default values
         this.x = x;
         this.y = y;
         this.x2 = x + rockHeight; //magic number is rock height shuld refactor
@@ -11,10 +11,14 @@ class Rock { //might want to change name?
 
     draw() {
         context.beginPath();
-        if(this.isCeiling){
-            context.rect(this.x, 0, rockHeight, this.y + rockHeight);
+        if (this.isCeiling) {
+            for (let i = 0; i <= this.y; i += 20) {
+                context.drawImage(earthTexture, this.x, i);
+            }
         } else {
-            context.rect(this.x, this.y, rockHeight, 500);
+            for (let i = this.y; i < canvas.height; i += 20) {
+                context.drawImage(earthTexture, this.x, i);
+            }
         }
         context.strokeStyle = '#f2bb74';
         context.stroke(); //remove when add texture

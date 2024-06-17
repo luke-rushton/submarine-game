@@ -5,12 +5,26 @@ const canvas = document.getElementById("game-canvas");
 const context = canvas.getContext("2d");
 canvas.width = 1000;
 canvas.height = 500;
+//images
 const submarineImg = new Image();
 submarineImg.src = "yellow-sub-neutral.png";
 const submarineUpImg = new Image();
 submarineUpImg.src = "yellow-sub-ascend.png";
 const submarineDownImg = new Image();
 submarineDownImg.src = "yellow-sub-descend.png";
+const submarineAnimOne = new Image();
+submarineAnimOne.src = "submarine-death-frame-1.png";
+const submarineAnimTwo = new Image();
+submarineAnimTwo.src = "submarine-death-frame-2.png";
+const submarineDead = new Image();
+submarineDead.src = "submarine-death-final.png";
+//water
+const waterTexture = new Image();
+waterTexture.src = "water-texture.png";
+//earth
+const earthTexture = new Image();
+earthTexture.src = "earth-texture.png";
+
 let rockArray = [];
 const rockHeight = 20; //change this to increase/decrease rocksize 
 const tunnelWidth = 4; //used to set initial distance of tunnel from floor/ceiling
@@ -18,6 +32,9 @@ const rockColor = '#6b2911'; //same as in rock class
 //stops spamming start game
 let gameStarted = false;
 let gameplayTheme = new Audio('gameplay-theme.mp3');
+let gameOverTheme = new Audio('game-over.mp3');
+let isDead = false; //to play death animation
+let currentScore = 0;
 
 class Game {
     constructor() {
@@ -65,6 +82,7 @@ class Game {
 
         const animate = () => { //split animate into animation function?
             context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(waterTexture, 0, 0); //animate this?
             rockArray.forEach((rock) => {
                 rock?.move();
                 rock?.draw();
@@ -77,26 +95,54 @@ class Game {
                 submarine.reset();
             }
             if (submarine.checkCollision()) {
-                this.endGame(); //add in ending animation function
+                this.endGame(submarine); //add in ending animation function
                 return;
             }
             submarine.draw();
+            currentScore++;
             requestAnimationFrame(animate);
         };
         animate();
     }
-    endGame() {
+    endGame(submarine) {
         gameplayTheme.pause();
         gameplayTheme.currentTime = 0;
-        startScreenElem.style.display = 'block';
-        startScreenElem.innerHTML = 'You Died! Press space to restart';
-        gameStarted = false;
-        //resetting global variables
-        currentHeight = tunnelWidth;
-        isDescending = true;
-        rockArray = [];
-        //resetting canvas
-        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        let xPos = submarine.x;
+        let yPos = submarine.y;
+        let counter = 60;
+        gameOverTheme.play();
+        const deathAnim = () => {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            if (counter < 20) {
+                context.drawImage(submarineDead, xPos, yPos);
+            } else if (counter < 40) {
+                context.drawImage(submarineAnimTwo, xPos, yPos);
+            } else {
+                context.drawImage(submarineAnimOne, xPos, yPos);
+            }
+            counter -= 1;
+            requestAnimationFrame(deathAnim);
+        }
+        deathAnim();
+
+        setTimeout(() => {
+            gameOverTheme.pause();
+            gameOverTheme.currentTime = 0;
+            startScreenElem.style.display = 'block';
+            startScreenElem.innerHTML = 'You Died! Press space to restart. Your Score:' + currentScore;
+            gameStarted = false;
+            //resetting global variables
+            currentHeight = tunnelWidth;
+            isDescending = true;
+            currentScore = 0;
+            rockArray = [];
+            //resetting canvas
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }, 1000);
+    }
+    reset() {
+
     }
 }
 
