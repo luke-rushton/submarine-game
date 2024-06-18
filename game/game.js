@@ -1,10 +1,12 @@
 //start screen elem
 const startScreenElem = document.getElementById("start-screen");
+
 //build the canvas 
 const canvas = document.getElementById("game-canvas");
 const context = canvas.getContext("2d");
 canvas.width = 1000;
 canvas.height = 500;
+context.font = '25px VT323';
 //images
 const submarineImg = new Image();
 submarineImg.src = "yellow-sub-neutral.png";
@@ -99,6 +101,8 @@ class Game {
                 return;
             }
             submarine.draw();
+            context.fillStyle = '#fff';
+            context.fillText(`score: ${currentScore}`, 875, 20);
             currentScore++;
             requestAnimationFrame(animate);
         };
@@ -130,7 +134,10 @@ class Game {
             gameOverTheme.pause();
             gameOverTheme.currentTime = 0;
             startScreenElem.style.display = 'block';
-            startScreenElem.innerHTML = 'You Died! Press space to restart. Your Score:' + currentScore;
+            startScreenElem.style.fontSize = '3rem'; 
+            startScreenElem.style.color = '#6b2911';
+            startScreenElem.style.textAlign = 'center';
+            startScreenElem.innerHTML = 'You Died! Your Score:' + currentScore + ' Press space to restart.';
             gameStarted = false;
             //resetting global variables
             currentHeight = tunnelWidth;

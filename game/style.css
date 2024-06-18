@@ -21,6 +21,10 @@ h1{
     background-color: #f2bb74;
     padding: 1rem;
 }
+h2{
+    font-size: 3rem;
+    color: #6b2911;
+}
 #game{
     position: relative;
 }
