@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { gameHeight } from './game';
+import { gameWidth } from './game';
+import { terrainArray } from './game';
 
+let counter = 0;
 const subSprite = new THREE.TextureLoader().load('yellow-sub-neutral.png');
 const material = new THREE.SpriteMaterial({ map: subSprite });
 class Submarine {
@@ -9,14 +13,12 @@ class Submarine {
         this.y = 250;
         this.x2 = 250 + 64; //magic numbers for submarine size. make universal?
         this.y2 = 250 + 32;
-        this.neutral = (this.ceiling + this.floor) / 2; //take into account sub sprite offset?
+        this.neutral = (gameHeight) / 2; //take into account sub sprite offset?
+        this.ceiling = gameHeight;
+        this.floor = 0;
         this.movingUp = false;
         this.movingDown = false;
         this.sprite = new THREE.Sprite(material);
-        //maybe adjust hitbox for float up and down? so pic is not cut
-        //this.neutralFloat = submarineImg; //maybe directly assign src
-        //this.upFloat = submarineUpImg; //maybe directly assign src
-        //this.downFloat = submarineDownImg; //maybe directly assign src
     }
     initialize() {
         this.sprite.position.x = this.x;
@@ -30,29 +32,41 @@ class Submarine {
     }
 
     float() { //maybe combine float and sink?
-        if (this.y > this.ceiling) {
-            this.y -= 5;
-            this.y2 -= 5;
+        if (this.sprite.position.y < this.ceiling) {
+            this.sprite.position.y += 4;
+            this.y += 4;
+            this.y2 += 4;
         }
     }
     sink() {
-        if (this.y < this.floor) {
-            this.y += 5;
-            this.y2 += 5;
+        if (this.sprite.position.y > this.floor) {
+            this.sprite.position.y -= 4;
+            this.y -= 4;
+            this.y2 -= 4;
         }
+
     }
     reset() {
-        if (this.y < this.neutral) {
-            this.y += 2.5; //floats back at half speed of control
-            this.y2 += 2.5;
+        if (this.sprite.position.y < this.neutral) {
+            this.sprite.position.y += 2; //floats back at half speed of control
+            this.y += 2;
+            this.y2 += 2;
         }
-        if (this.y > this.neutral) {
-            this.y -= 2.5;
-            this.y2 -= 2.5;
+        if (this.sprite.position.y > this.neutral) {
+            this.sprite.position.y -= 2;
+            this.y -= 2;
+            this.y2 -= 2;
         }
     }
     checkCollision() {
-
+        let hasCollided = false;
+        terrainArray.forEach((cube) => {
+            //hitbox based of https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
+            if (this.x < cube.x2 && this.x2 > cube.x && this.y2 > cube.y && this.y < cube.y2) {
+                hasCollided = true;
+            }
+        });
+        return hasCollided;
     }
 }
 export { Submarine };

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { scrollSpeed } from './game';
+import { testGen } from './generators';
 
 //info for cubes, does not change
 const geometry = new THREE.BoxGeometry(20, 20, 20);
@@ -14,6 +15,9 @@ class Rock {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.dimensions = 20;
+        this.x2 = x + this.dimensions;
+        this.y2 = y + this.dimensions;
         this.terrainCube = new THREE.Mesh(geometry, matCapMaterial);
     }
     initialize() {
@@ -30,7 +34,12 @@ class Rock {
         if (this.terrainCube.position.x < 0) {
             this.terrainCube.position.x = 1000;
             this.terrainCube.position.x -= scrollSpeed;
+            this.terrainCube.position.y = testGen(this.y);
         }
+        this.x = this.terrainCube.position.x;
+        this.x2 = this.x + this.dimensions;
+        this.y = this.terrainCube.position.y;
+        this.y2 = this.y + this.dimensions;
     }
 }
 export { Rock };
