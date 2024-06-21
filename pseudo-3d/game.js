@@ -45,6 +45,7 @@ export { gameHeight };
 const gameWidth = canvas.width;
 export { gameWidth };
 
+
 class Game {
     constructor() {
         this.canvas = canvas; //maybe initialize inside object?
@@ -70,6 +71,19 @@ class Game {
 
     }
     start() {
+        //sub load test
+        let loader = new GLTFLoader();
+        let sub;
+        loader.load('submarine-3d-neutral.glb', function (gltf) {
+            sub = gltf.scene.children[0];
+            sub.position.x = 500;
+            sub.position.y = 250;
+            sub.position.z = 0;
+            sub.scale.set(10, 10, 10);
+            sub.rotateX(1.5708); //90 degrees in radians
+            scene.add(sub);
+        });
+
         //MUSIC FROM: https://heatleybros.bandcamp.com/track/sunset-beach
         gameplayTheme.play();
 
