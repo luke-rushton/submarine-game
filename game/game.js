@@ -134,7 +134,7 @@ class Game {
             gameOverTheme.pause();
             gameOverTheme.currentTime = 0;
             startScreenElem.style.display = 'block';
-            startScreenElem.style.fontSize = '3rem'; 
+            startScreenElem.style.fontSize = '3rem';
             startScreenElem.style.color = '#6b2911';
             startScreenElem.style.textAlign = 'center';
             startScreenElem.innerHTML = 'You Died! Your Score:' + currentScore + ' Press space to restart.';

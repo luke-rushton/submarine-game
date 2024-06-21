@@ -34,8 +34,8 @@ P{
     position: relative;
 }
 #game-canvas{
-    background-color: aqua;
     margin: 2rem;
+    background-color: aqua;
 }
 #start-screen{
     position: absolute;
