@@ -13,11 +13,14 @@ class Submarine {
         this.neutralFloat = submarineImg; //maybe directly assign src
         this.upFloat = submarineUpImg; //maybe directly assign src
         this.downFloat = submarineDownImg; //maybe directly assign src
+
+        //debug stuff
+        this.geometry = new THREE.BoxGeometry(64, 32, 5);
     }
     draw() {
-        if(this.movingUp){
+        if (this.movingUp) {
             context.drawImage(this.upFloat, this.x, this.y);
-        } else if (this.movingDown){
+        } else if (this.movingDown) {
             context.drawImage(this.downFloat, this.x, this.y);
         } else {
             context.drawImage(this.neutralFloat, this.x, this.y);

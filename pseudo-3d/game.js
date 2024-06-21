@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { initialGeneration } from './generators';
+import { initialGeneration, resetGenerationGlobals } from './generators';
 import { Rock } from './rock.js';
 import { Submarine } from './submarine.js';
 
@@ -15,6 +15,10 @@ canvas.height = 500;
 //stops spamming start game
 let gameStarted = false;
 
+//music
+let gameplayTheme = new Audio('gameplay-theme.mp3');
+let gameOverTheme = new Audio('game-over.mp3');
+
 //3d stuff
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 1000 / 500, 0.1, 1000);
@@ -25,6 +29,9 @@ renderer.setClearColor(0x00ffff);
 //terrain array
 let terrainArray = [];
 export { terrainArray };
+
+//score counter
+let currentScore = 0;
 
 //game variables
 const scrollSpeed = 2;
@@ -63,11 +70,22 @@ class Game {
 
     }
     start() {
+        //MUSIC FROM: https://heatleybros.bandcamp.com/track/sunset-beach
+        gameplayTheme.play();
+
         //setting up camera
         camera.position.z = 300;
         camera.position.y = 250;
         camera.position.x = 500;
         camera.lookAt(500, 250, 0);
+
+
+
+        //generate submarine
+        const submarine = new Submarine();
+        submarine.initialize();
+        //scene.add(submarine.getDebug());
+        scene.add(submarine.get());
 
         //generate terrain cubes
         this.initialTerrain();
@@ -75,15 +93,13 @@ class Game {
             scene.add(cube.get());
         });
 
-        //generate submarine
-        const submarine = new Submarine();
-        submarine.initialize();
-        scene.add(submarine.get());
+
 
         //control submarine
         //try and refactor these 4
         const moveUp = document.addEventListener("keydown", (event) => {
             if (event.key === 'w') {
+                console.log('1 press');
                 submarine.movingUp = true;
             }
         });
@@ -121,6 +137,8 @@ class Game {
             if (submarine.checkCollision()) {
                 this.endGame();
             }
+            //increase score
+            currentScore++;
             //render next frame
             this.renderer.render(this.scene, this.camera);
         }
@@ -128,7 +146,35 @@ class Game {
     }
     endGame() {
         this.renderer.setAnimationLoop(null);
-        this.renderer.reset();
+        gameplayTheme.pause();
+        gameplayTheme.currentTime = 0;
+
+        //do death animation here
+
+        //play game over theme
+        gameOverTheme.play();
+
+        //reset the scene
+        while (this.scene.children.length > 0) {
+            this.scene.remove(this.scene.children[0]);
+        }
+        //display game over menu and reset in background
+        setTimeout(() => {
+            gameOverTheme.pause();
+            gameOverTheme.currentTime = 0;
+            startScreenElem.style.display = 'block';
+            startScreenElem.style.fontSize = '3rem';
+            startScreenElem.style.color = '#6b2911';
+            startScreenElem.style.textAlign = 'center';
+            startScreenElem.innerHTML = 'You Died! Your Score:' + currentScore + ' Press space to restart.';
+            gameStarted = false;
+            //resetting global variables
+            currentScore = 0;
+            terrainArray = [];
+            resetGenerationGlobals();
+
+
+        }, 1000);
     }
     reset() {
 
@@ -149,5 +195,4 @@ document.addEventListener("keydown", (event) => {
 function startGame() { //initializes the game object
     const game = new Game();
     game.start();
-
 }
