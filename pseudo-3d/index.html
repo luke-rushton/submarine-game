@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -6,8 +6,49 @@
 		<style>
 			body { margin: 0; }
 		</style>
+		<script type="module" src="/scripts.js"></script>
 	</head>
 	<body>
-		<script type="module" src="/scripts.js"></script>
 	</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submarine Adventure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!--<script defer src="game.js"></script>
+    <script defer src="submarine.js"></script>
+    <script defer src="rock.js"></script>
+    <script defer src="generators.js"></script>-->
+	<script type="module" src="/scripts.js"></script>
+	<link defer rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <main>
+        <div id="title-div">
+            <h1 class="animate__animated animate__slower animate__heartBeat animate__infinite">Submarine Adventure!</h1>
+        </div>
+        <div id="game">
+            <canvas id="game-canvas"></canvas>
+            <div tabindex="-1" id="start-screen">
+                <h2 id="start-title">Press SPACE to start!</h2>
+            </div>
+        </div>
+        <div id="game-info">
+            <p>Your underwater adventure has gone terribly wrong! Lost in a deep underwater cave with little chance of escape! How long can you survive?</p>
+            <h2>Controls:</h2>
+            <p>W to float up</p>
+            <p>S to float down</p>
+        </div>
+    </main>
+</body>
 </html>

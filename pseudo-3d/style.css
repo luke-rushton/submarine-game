@@ -1,0 +1,50 @@
+body{
+    background-color: grey;
+    margin: 0;
+    font-family: "VT323", monospace, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+main{
+    background-color: white;
+    height: 100vh;
+    width: 1064px;
+    margin: auto;
+
+}
+h1{
+    text-align: center;
+    margin: 0;
+    color: aqua;
+    text-shadow: 5px 5px #6b2911;
+    font-size: 4rem;
+    padding: 1rem;
+}
+#title-div{
+    background-color: #f2bb74;
+}
+h2{
+    font-size: 3rem;
+    color: #6b2911;
+}
+P{
+    font-size: 1.5rem;
+}
+#game{
+    position: relative;
+}
+#game-canvas{
+    background-color: aqua;
+    margin: 2rem;
+}
+#start-screen{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+#game-info p,
+#game-info h2{
+    text-align: center;
+    margin: 0.5rem;
+}
