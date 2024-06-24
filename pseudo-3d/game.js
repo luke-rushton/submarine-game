@@ -40,7 +40,7 @@ const rockSize = 20; //scale for edges of cubes
 export { rockSize };
 const tunnelWidth = 7;
 export { tunnelWidth };
-const gameHeight = canvas.height;
+const gameHeight = 500; //canvas.height;
 export { gameHeight };
 const gameWidth = canvas.width;
 export { gameWidth };
@@ -71,18 +71,6 @@ class Game {
 
     }
     start() {
-        //sub load test
-        let loader = new GLTFLoader();
-        let sub;
-        loader.load('submarine-3d-neutral.glb', function (gltf) {
-            sub = gltf.scene.children[0];
-            sub.position.x = 500;
-            sub.position.y = 250;
-            sub.position.z = 0;
-            sub.scale.set(10, 10, 10);
-            sub.rotateX(1.5708); //90 degrees in radians
-            scene.add(sub);
-        });
 
         //MUSIC FROM: https://heatleybros.bandcamp.com/track/sunset-beach
         gameplayTheme.play();
@@ -113,7 +101,6 @@ class Game {
         //try and refactor these 4
         const moveUp = document.addEventListener("keydown", (event) => {
             if (event.key === 'w') {
-                console.log('1 press');
                 submarine.movingUp = true;
             }
         });

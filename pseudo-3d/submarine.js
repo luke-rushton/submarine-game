@@ -8,9 +8,18 @@ let counter = 0;
 const subSprite = new THREE.TextureLoader().load('yellow-sub-neutral.png');
 const material = new THREE.SpriteMaterial({ map: subSprite });
 
+//sub going up
+const subUpSprite = new THREE.TextureLoader().load('submarine-death-final.png');
+
 //debug constants
 const geometry = new THREE.BoxGeometry(64, 32, 5);
 const debugMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+//ADD DEATH FUNCTION TODO:
+//-load death sprites
+//change sprite scale
+//switch betwwen sprites to animate
+
 
 class Submarine {
     constructor() {
@@ -49,6 +58,7 @@ class Submarine {
 
     float() { //maybe combine float and sink?
         if (this.sprite.position.y < this.ceiling) {
+            material.rotation = 0.261799;
             this.debugCube.position.y += 4;
             this.sprite.position.y += 4;
             this.y += 4;
@@ -57,6 +67,7 @@ class Submarine {
     }
     sink() {
         if (this.sprite.position.y > this.floor) {
+            material.rotation = -0.261799;
             this.debugCube.position.y -= 4;
             this.sprite.position.y -= 4;
             this.y -= 4;
@@ -65,6 +76,7 @@ class Submarine {
 
     }
     reset() {
+        material.rotation = 0;
         if (this.sprite.position.y < this.neutral) {
             this.debugCube.position.y += 2;
             this.sprite.position.y += 2; //floats back at half speed of control
