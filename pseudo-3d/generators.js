@@ -1,5 +1,7 @@
-import { gameHeight } from "./game";
-import { tunnelWidth } from "./game";
+//import { gameHeight } from "./game";
+const gameHeight = 500;
+//import { tunnelWidth } from "./game";
+const tunnelWidth = 7;
 import { rockSize } from "./game";
 
 

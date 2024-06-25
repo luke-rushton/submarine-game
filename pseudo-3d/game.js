@@ -12,10 +12,11 @@ canvas.height = 500;
 
 //stops spamming start game
 let gameStarted = false;
+let gameReplay = false;
 
 //music
-let gameplayTheme = new Audio('gameplay-theme.mp3');
-let gameOverTheme = new Audio('game-over.mp3');
+let gameplayTheme = new Audio('./gameplay-theme.mp3');
+let gameOverTheme = new Audio('./game-over.mp3');
 
 //3d stuff
 const scene = new THREE.Scene();
@@ -57,8 +58,8 @@ class Game {
     initialTerrain() { //builds the rockArray, not actually structuring map. tunnel generating happens in move()
         //terrainArray = initialGeneration();
         for (let i = 0; i < 1000; i += rockSize) {
-            const terrainCubeT = new Rock(i, gameHeight - (tunnelWidth * rockSize));
-            const terrainCubeB = new Rock(i, (tunnelWidth * rockSize));
+            const terrainCubeT = new Rock(i, gameHeight - (tunnelWidth * rockSize), true);
+            const terrainCubeB = new Rock(i, (tunnelWidth * rockSize), false);
             terrainCubeT.initialize();
             terrainCubeB.initialize();
             terrainArray.push(terrainCubeT);
@@ -169,9 +170,10 @@ class Game {
             startScreenElem.style.color = '#6b2911';
             startScreenElem.style.textAlign = 'center';
             startScreenElem.innerHTML = 'You Died! Your Score:' + currentScore + ' Press space to restart.';
-            gameStarted = false;
+            gameReplay = true;
             //hard reset
-            location.reload();
+            //gameStarted = false;
+            terrainArray = [];
 
 
         }, 1000);
@@ -189,6 +191,9 @@ document.addEventListener("keydown", (event) => {
             startScreenElem.style.display = 'none';
             console.log('test');
             startGame();
+        }
+        if (gameReplay) {
+            location.reload();
         }
     }
 });

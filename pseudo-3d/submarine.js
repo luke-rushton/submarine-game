@@ -3,13 +3,13 @@ import { gameHeight } from './game';
 import { terrainArray } from './game';
 
 let counter = 0;
-const subSprite = new THREE.TextureLoader().load('yellow-sub-neutral.png');
+const subSprite = new THREE.TextureLoader().load('./yellow-sub-neutral.png');
 const material = new THREE.SpriteMaterial({ map: subSprite });
 
 //sub death sprites
-const subDeathOneSprite = new THREE.TextureLoader().load('submarine-death-frame-1.png');
-const subDeathTwoSprite = new THREE.TextureLoader().load('submarine-death-frame-2.png');
-const subDeathThreeSprite = new THREE.TextureLoader().load('submarine-death-final.png');
+const subDeathOneSprite = new THREE.TextureLoader().load('./submarine-death-frame-1.png');
+const subDeathTwoSprite = new THREE.TextureLoader().load('./submarine-death-frame-2.png');
+const subDeathThreeSprite = new THREE.TextureLoader().load('./submarine-death-final.png');
 
 //debug constants
 const geometry = new THREE.BoxGeometry(64, 32, 5);
