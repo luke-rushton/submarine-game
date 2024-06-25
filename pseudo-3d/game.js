@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { initialGeneration, resetGenerationGlobals } from './generators';
 import { Rock } from './rock.js';
 import { Submarine } from './submarine.js';
 
@@ -57,15 +56,15 @@ class Game {
 
     }
     initialTerrain() { //builds the rockArray, not actually structuring map. tunnel generating happens in move()
-        terrainArray = initialGeneration();
-        // for (let i = 0; i < 1000 + rockSize; i += rockSize) {
-        //     const terrainCubeT = new Rock(i, canvas.height - (tunnelWidth * rockSize));
-        //     const terrainCubeB = new Rock(i, (tunnelWidth * rockSize));
-        //     terrainCubeT.initialize();
-        //     terrainCubeB.initialize();
-        //     terrainArray.push(terrainCubeT);
-        //     terrainArray.push(terrainCubeB);
-        // }
+        //terrainArray = initialGeneration();
+        for (let i = 0; i < 1000; i += rockSize) {
+            const terrainCubeT = new Rock(i, gameHeight - (tunnelWidth * rockSize));
+            const terrainCubeB = new Rock(i, (tunnelWidth * rockSize));
+            terrainCubeT.initialize();
+            terrainCubeB.initialize();
+            terrainArray.push(terrainCubeT);
+            terrainArray.push(terrainCubeB);
+        }
     }
     generateTerrain() {
 

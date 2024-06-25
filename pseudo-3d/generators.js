@@ -1,5 +1,5 @@
 //import { gameHeight } from "./game";
-const gameHeight = 500; //idk why this breaks always
+const gameHeight = 500; //gotta decouple the self referential stuff
 import { Rock } from "./rock";
 //import { tunnelWidth } from "./game";
 const tunnelWidth = 7;
@@ -37,16 +37,6 @@ let isCeiling = true;
 let ceilingHeight = 0;
 let flatSegment = 0;
 
-function resetGenerationGlobals() {
-    currentCeilingHeight = gameHeight - tunnelWidth * 20;
-    minCeilingHeight = tunnelWidth * 20 + Math.floor(Math.random() * gameHeight / 20) * 20;
-    currentFloorHeight = tunnelWidth * 20;
-    isDescending = true;
-    isCeiling = true;
-    ceilingHeight = 0;
-    flatSegment = 0;
-}
-export { resetGenerationGlobals };
 //this generator sucks and i hate it
 function testGen(height) {
     if (isCeiling) {

@@ -108,14 +108,6 @@ class Submarine {
         material.rotation = 0;
         material.map = subDeathOneSprite;
         this.sprite.scale.set(96, 128, 1);
-        setTimeout(() => {
-            material.map = subDeathTwoSprite;
-            this.sprite.scale.set(96, 128, 1);
-        }, 300);
-        setTimeout(() => {
-            material.map = subDeathThreeSprite;
-            this.sprite.scale.set(96, 128, 1);
-        }, 600);
     }
     resetArt() {
         material.rotation = 0;
