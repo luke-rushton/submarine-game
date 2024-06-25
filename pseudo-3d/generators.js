@@ -1,6 +1,8 @@
-import { gameHeight } from "./game";
+//import { gameHeight } from "./game";
+const gameHeight = 500; //idk why this breaks always
 import { Rock } from "./rock";
-import { tunnelWidth } from "./game";
+//import { tunnelWidth } from "./game";
+const tunnelWidth = 7;
 import { rockSize } from "./game";
 
 //intializes the rock array.

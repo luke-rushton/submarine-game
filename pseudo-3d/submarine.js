@@ -8,8 +8,10 @@ let counter = 0;
 const subSprite = new THREE.TextureLoader().load('yellow-sub-neutral.png');
 const material = new THREE.SpriteMaterial({ map: subSprite });
 
-//sub going up
-const subUpSprite = new THREE.TextureLoader().load('submarine-death-final.png');
+//sub death sprites
+const subDeathOneSprite = new THREE.TextureLoader().load('submarine-death-frame-1.png');
+const subDeathTwoSprite = new THREE.TextureLoader().load('submarine-death-frame-2.png');
+const subDeathThreeSprite = new THREE.TextureLoader().load('submarine-death-final.png');
 
 //debug constants
 const geometry = new THREE.BoxGeometry(64, 32, 5);
@@ -23,9 +25,9 @@ const debugMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
 class Submarine {
     constructor() {
-        this.x = 250 + 32; //update initial position here there is a minor float up at start due to this position. update to start at neutral?
+        this.x = 200 + 32; //update initial position here there is a minor float up at start due to this position. update to start at neutral?
         this.y = 250 + 16;
-        this.x2 = 250 + 64; //magic numbers for submarine size. make universal?
+        this.x2 = 200 + 64; //magic numbers for submarine size. make universal?
         this.y2 = 250 + 32;
         this.neutral = (gameHeight) / 2; //take into account sub sprite offset?
         this.ceiling = gameHeight;
@@ -33,6 +35,7 @@ class Submarine {
         this.movingUp = false;
         this.movingDown = false;
         this.sprite = new THREE.Sprite(material);
+        this.disableKeys = false;
 
         //debug
         this.debugCube = new THREE.Mesh(geometry, debugMat);
@@ -57,7 +60,7 @@ class Submarine {
     }
 
     float() { //maybe combine float and sink?
-        if (this.sprite.position.y < this.ceiling) {
+        if ((this.sprite.position.y < this.ceiling) && !this.disableKeys) {
             material.rotation = 0.261799;
             this.debugCube.position.y += 4;
             this.sprite.position.y += 4;
@@ -66,7 +69,7 @@ class Submarine {
         }
     }
     sink() {
-        if (this.sprite.position.y > this.floor) {
+        if ((this.sprite.position.y > this.floor) && !this.disableKeys) {
             material.rotation = -0.261799;
             this.debugCube.position.y -= 4;
             this.sprite.position.y -= 4;
@@ -77,13 +80,13 @@ class Submarine {
     }
     reset() {
         material.rotation = 0;
-        if (this.sprite.position.y < this.neutral) {
+        if ((this.sprite.position.y < this.neutral) && !this.disableKeys) {
             this.debugCube.position.y += 2;
             this.sprite.position.y += 2; //floats back at half speed of control
             this.y += 2;
             this.y2 += 2;
         }
-        if (this.sprite.position.y > this.neutral) {
+        if ((this.sprite.position.y > this.neutral) && !this.disableKeys) {
             this.debugCube.position.y -= 2;
             this.sprite.position.y -= 2;
             this.y -= 2;
@@ -99,6 +102,25 @@ class Submarine {
             }
         });
         return hasCollided;
+    }
+    die() {
+        this.disableKeys = true;
+        material.rotation = 0;
+        material.map = subDeathOneSprite;
+        this.sprite.scale.set(96, 128, 1);
+        setTimeout(() => {
+            material.map = subDeathTwoSprite;
+            this.sprite.scale.set(96, 128, 1);
+        }, 300);
+        setTimeout(() => {
+            material.map = subDeathThreeSprite;
+            this.sprite.scale.set(96, 128, 1);
+        }, 600);
+    }
+    resetArt() {
+        material.rotation = 0;
+        material.map = subSprite;
+        this.sprite.scale.set(64, 32, 1);
     }
 }
 export { Submarine };

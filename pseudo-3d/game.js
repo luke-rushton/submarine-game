@@ -136,7 +136,7 @@ class Game {
                 submarine.reset();
             }
             if (submarine.checkCollision()) {
-                this.endGame();
+                this.endGame(submarine);
             }
             //increase score
             currentScore++;
@@ -145,22 +145,25 @@ class Game {
         }
         this.renderer.setAnimationLoop(animate);
     }
-    endGame() {
-        this.renderer.setAnimationLoop(null);
+    endGame(submarine) {
         gameplayTheme.pause();
         gameplayTheme.currentTime = 0;
 
-        //do death animation here
+        this.renderer.setAnimationLoop(null);
 
+        //do death animation here
+        submarine.die();
         //play game over theme
         gameOverTheme.play();
 
         //reset the scene
-        while (this.scene.children.length > 0) {
-            this.scene.remove(this.scene.children[0]);
+        while (this.scene.children.length > 1) {
+            this.scene.remove(this.scene.children[1]);
         }
         //display game over menu and reset in background
         setTimeout(() => {
+            submarine.resetArt();
+            this.scene.remove(this.scene.children[0]);
             gameOverTheme.pause();
             gameOverTheme.currentTime = 0;
             startScreenElem.style.display = 'block';
@@ -172,7 +175,7 @@ class Game {
             //resetting global variables
             currentScore = 0;
             terrainArray = [];
-            resetGenerationGlobals();
+            location.reload();
 
 
         }, 1000);
@@ -188,6 +191,7 @@ document.addEventListener("keydown", (event) => {
         if (!gameStarted) {
             gameStarted = true;
             startScreenElem.style.display = 'none';
+            console.log('test');
             startGame();
         }
     }
@@ -196,4 +200,5 @@ document.addEventListener("keydown", (event) => {
 function startGame() { //initializes the game object
     const game = new Game();
     game.start();
+    console.log('test');
 }
