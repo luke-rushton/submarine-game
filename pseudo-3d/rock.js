@@ -1,9 +1,8 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { scrollSpeed } from './game';
 import { testGen } from './generators';
 
-//info for cubes, does not change
+//info for cubes, does not change can probs remove some of this stuff
 const geometry = new THREE.BoxGeometry(20, 20, 20);
 const matCapMaterial = new THREE.MeshMatcapMaterial();
 const matCapTexture = new THREE.TextureLoader().load('/matcap.png');

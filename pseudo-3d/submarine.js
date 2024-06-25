@@ -1,7 +1,5 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { gameHeight } from './game';
-import { gameWidth } from './game';
 import { terrainArray } from './game';
 
 let counter = 0;

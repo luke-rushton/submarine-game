@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { Rock } from './rock.js';
 import { Submarine } from './submarine.js';
 
@@ -171,9 +170,7 @@ class Game {
             startScreenElem.style.textAlign = 'center';
             startScreenElem.innerHTML = 'You Died! Your Score:' + currentScore + ' Press space to restart.';
             gameStarted = false;
-            //resetting global variables
-            currentScore = 0;
-            terrainArray = [];
+            //hard reset
             location.reload();
 
 
