@@ -123,6 +123,7 @@ class Game {
         });
 
         const animate = () => {
+            startScreenElem.innerHTML = 'score: ' + currentScore;
             terrainArray.forEach((cube) => {
                 cube.move();
             });
@@ -145,6 +146,7 @@ class Game {
         this.renderer.setAnimationLoop(animate);
     }
     endGame(submarine) {
+        startScreenElem.style.display = 'none';
         gameplayTheme.pause();
         gameplayTheme.currentTime = 0;
 
@@ -169,6 +171,8 @@ class Game {
             startScreenElem.style.fontSize = '3rem';
             startScreenElem.style.color = '#6b2911';
             startScreenElem.style.textAlign = 'center';
+            startScreenElem.style.left = '50%';
+            startScreenElem.style.top = '50%';
             startScreenElem.innerHTML = 'You Died! Your Score:' + currentScore + ' Press space to restart.';
             gameReplay = true;
             //hard reset
@@ -188,8 +192,15 @@ document.addEventListener("keydown", (event) => {
     if (event.key === ' ') {
         if (!gameStarted) {
             gameStarted = true;
-            startScreenElem.style.display = 'none';
-            console.log('test');
+
+            //prep scoreboard
+            startScreenElem.innerHTML = 'score: ';
+            startScreenElem.style.display = 'block';
+            startScreenElem.style.position = 'absolute';
+            startScreenElem.style.left = '55rem';
+            startScreenElem.style.top = '4rem';
+            startScreenElem.style.fontSize = '2rem';
+            startScreenElem.style.color = '#ffffff';
             startGame();
         }
         if (gameReplay) {
