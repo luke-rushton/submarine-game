@@ -10,7 +10,7 @@ body{
 }
 main{
     background-color: white;
-    height: 100vh;
+    height: 85vh;
     width: 1064px;
     margin: auto;
 
@@ -25,7 +25,7 @@ footer{
     background-color: white;
     width: 1064px;
     margin: auto;
-    height: 4rem;
+    height: 3rem;
 }
 footer p{
     margin: 0px;

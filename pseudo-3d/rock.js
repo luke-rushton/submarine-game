@@ -5,8 +5,10 @@ import { testGen } from './generators';
 //info for cubes, does not change can probs remove some of this stuff
 const geometry = new THREE.BoxGeometry(20, 500, 20);
 const matCapMaterial = new THREE.MeshMatcapMaterial();
-const matCapTexture = new THREE.TextureLoader().load('./matcap.png');
-const texture = new THREE.TextureLoader().load("./earth-texture.png");
+const matCapTexture = new THREE.TextureLoader().load('/matcap.png');
+const texture = new THREE.TextureLoader().load("/earth-texture.png");
+texture.wrapT = THREE.RepeatWrapping;
+texture.repeat.set(1,25);
 matCapMaterial.map = texture;
 matCapMaterial.matcap = matCapTexture;
 

@@ -1,10 +1,12 @@
+
+//not sure why imports are failing, hard coding with magic numbers instead
 //import { gameHeight } from "./game";
 const gameHeight = 500;
 //import { tunnelWidth } from "./game";
 const tunnelWidth = 7;
 import { rockSize } from "./game";
 
-
+//20 magic number is for sides of cube
 let currentCeilingHeight = gameHeight - tunnelWidth * 20;
 let minCeilingHeight = tunnelWidth * 20 + Math.floor(Math.random() * gameHeight / 20) * 20;
 let currentFloorHeight = tunnelWidth * 20;

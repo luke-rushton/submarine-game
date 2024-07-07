@@ -15,8 +15,8 @@ let gameStarted = false;
 let gameReplay = false;
 
 //music
-let gameplayTheme = new Audio('./gameplay-theme.mp3');
-let gameOverTheme = new Audio('./game-over.mp3');
+let gameplayTheme = new Audio('/gameplay-theme.mp3');
+let gameOverTheme = new Audio('/game-over.mp3');
 
 //3d stuff
 const scene = new THREE.Scene();
@@ -71,7 +71,6 @@ class Game {
     }
     start() {
 
-        //MUSIC FROM: https://heatleybros.bandcamp.com/track/sunset-beach
         gameplayTheme.play();
 
         //setting up camera
